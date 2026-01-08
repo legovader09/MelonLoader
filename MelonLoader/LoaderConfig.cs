@@ -27,8 +27,12 @@ public class LoaderConfig
     [RequiresDynamicCode("Dynamically accesses LoaderConfig properties")]
     internal static void Initialize()
     {
+        var BaseLocation = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var BaseDirectory = Path.Combine(BaseLocation, "IdleSlayerModManager");
+        var ModLoaderPath = Path.Combine(BaseDirectory, "ModLoader");
+
         var customBaseDir = ArgParser.GetValue("melonloader.basedir");
-        var baseDir = Path.GetDirectoryName(Environment.ProcessPath)!;
+        var baseDir = Directory.Exists(customBaseDir) ? Path.GetFullPath(customBaseDir) : ModLoaderPath;
 
 #if OSX
         baseDir = GetParentDirectory(baseDir, 3);
