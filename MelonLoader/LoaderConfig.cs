@@ -32,7 +32,7 @@ public class LoaderConfig
         var ModLoaderPath = Path.Combine(BaseDirectory, "ModLoader");
 
         var customBaseDir = ArgParser.GetValue("melonloader.basedir");
-        var baseDir = Directory.Exists(customBaseDir) ? Path.GetFullPath(customBaseDir) : ModLoaderPath;
+        var baseDir = Directory.Exists(ModLoaderPath) ? ModLoaderPath : Path.GetDirectoryName(Environment.ProcessPath)!;
 
 #if OSX
         baseDir = GetParentDirectory(baseDir, 3);
